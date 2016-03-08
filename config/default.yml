@@ -1,0 +1,24 @@
+PORT: 3000
+SEARCHER_PORT: 3001,
+INDEXER_PORT: 3002,
+COCKPIT_PORT: 3003
+LOG: info
+ES:
+  url: http://localhost:9200
+  maxSockets: 20
+  maxFreeSockets: 5
+  timeout: 60000
+  keepAliveTimeout: 30000
+REDIS:
+  host: 127.0.0.1
+  port: 6379
+  connect_timeout: 10000
+  retry_max_delay: 50000
+LOCKS:
+  type: redis # allowed values: redis, local, or null (==local)
+  timeout: 200000
+  retries: 1000
+  delay: 100
+CACHE:
+  type: redis # allowed values: redis, local, or null (==local)
+  flushTimeout: 30000 # 30 seconds
