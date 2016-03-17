@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 process.env.NODE_CONFIG_DIR = require('path').resolve(__dirname, 'config');
 
-require('./lib/CliInvoker.js');
+require('./lib/ServerInvoker.js');

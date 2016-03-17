@@ -11,4 +11,4 @@ import routesBuilder from 'humane-cockpit/lib/app/Routes';
 
 require('humane-cockpit/browser/assets/stylesheets/application.scss');
 
-buildBrowser(routesBuilder());
+buildBrowser(routesBuilder);
