@@ -7,9 +7,9 @@ import Indexer from 'humane-indexer/lib/api/Indexer';
 //
 import buildIndexerCli from 'humane-indexer/lib/api/IndexerCliBuilder';
 import buildDataPipelineCli from 'humane-indexer/lib/api/DataPipelineCliBuilder';
-import currentCommand from 'cli-boilerplate/lib/CurrentCommand';
-import outputHelp from 'cli-boilerplate/lib/OutputHelp';
-import runCli from 'cli-boilerplate/lib/CliRunner';
+import currentCommand from 'command-line-boilerplate/lib/CurrentCommand';
+import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
+import runCli from 'command-line-boilerplate/lib/CliRunner';
 
 export default function (config) {
     const indexerBuilder = () => new Indexer(_.pick(config, [

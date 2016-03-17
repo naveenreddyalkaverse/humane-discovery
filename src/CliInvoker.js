@@ -4,9 +4,9 @@ import FS from 'fs';
 import Promise from 'bluebird';
 import DefaultConfig from 'config';
 
-import globalOption from 'cli-boilerplate/lib/GlobalOption';
-import globalArg from 'cli-boilerplate/lib/GlobalArg';
-import runCli from 'cli-boilerplate/lib/CliRunner';
+import globalOption from 'command-line-boilerplate/lib/GlobalOption';
+import globalArg from 'command-line-boilerplate/lib/GlobalArg';
+import runCli from 'command-line-boilerplate/lib/CliRunner';
 
 import cli from './Cli';
 

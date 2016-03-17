@@ -2,7 +2,7 @@
   "name": "humane-discovery",
   "version": "1.0.0",
   "description": "Humane Discovery",
-  "private": true,
+  "repository": "git@github.com:360fy/humane-discovery.git",
   "scripts": {
     "lint": "eslint ./src/",
     "clean": "rm -rf lib/",
@@ -19,19 +19,18 @@
     "agentkeepalive": "^2.0.5",
     "babel-polyfill": "^6.7.2",
     "bluebird": "^3.3.4",
-    "cli-boilerplate": "https://private-npm-releases.s3.amazonaws.com/cli-boilerplate-1.0.2.tgz",
+    "command-line-boilerplate": "^1.0.2",
     "config": "^1.19.0",
     "events": "^1.1.0",
-    "expressjs-boilerplate": "https://private-npm-releases.s3.amazonaws.com/expressjs-boilerplate-1.0.9.tgz",
-    "humane-cockpit": "https://private-npm-releases.s3.amazonaws.com/humane-cockpit-1.0.5.tgz",
-    "humane-indexer": "https://private-npm-releases.s3.amazonaws.com/humane-indexer-1.0.5.tgz",
-    "humane-searcher": "https://private-npm-releases.s3.amazonaws.com/humane-searcher-1.0.5.tgz",
+    "expressjs-boilerplate": "^1.0.9",
+    "humane-cockpit": "^1.0.5",
+    "humane-indexer": "^1.0.5",
+    "humane-searcher": "^1.0.5",
     "immutable": "^3.7.6",
     "lodash": "^4.6.1",
     "md5": "^2.1.0",
     "moment": "^2.12.0",
-    "request": "^2.69.0",
-    "webpack-boilerplate": "https://private-npm-releases.s3.amazonaws.com/webpack-boilerplate-1.0.0.tgz"
+    "request": "^2.69.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.2",
@@ -40,8 +39,9 @@
     "babel-preset-node5": "^11.0.0",
     "babel-preset-react": "^6.5.0",
     "eslint": "^2.4.0",
-    "eslint-config-360fy": "https://private-npm-releases.s3.amazonaws.com/eslint-config-360fy-1.0.1.tgz",
-    "eslint-plugin-react": "^4.2.3"
+    "eslint-config-360fy": "^1.0.1",
+    "eslint-plugin-react": "^4.2.3",
+    "webpack-builder-boilerplate": "^1.0.0"
   },
   "eslintConfig": {
     "extends": "360fy"
