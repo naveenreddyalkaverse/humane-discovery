@@ -1,5 +1,5 @@
-# Humane Discovery
-Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, ecommerce, digital goods products etc. More specifically product approaches the discovery problem in 3 broad parts --
+# Humane Discovery [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/humane-discovery)
+Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, e-commerce, digital goods products etc. More specifically product approaches the discovery problem in 3 broad parts --
 
 - Search based discovery, such as autocomplete, suggested queries, search results, instance searches.
 - Personalised discovery such as recommended products (or posts). 
@@ -32,7 +32,7 @@ We call the lowest unit that can be searched, personalised or curated a **'Produ
   - Matches in single field are better than matches in two separate fields.
   - Phrase matches are better than single field matches.
   - Single field matches in lower weight field are better than matches in two different higher weight field. 
-- Product's weight autocomputation from disparate type of signals - views, downloads, add to cart, cart abandonment, purchases, time spent, or any custom events.
+- Product's weight auto-computation from disparate type of signals - views, downloads, add to cart, cart abandonment, purchases, time spent, or any custom events.
 - Multiple ways to compute weight --
   - Weighted signals based weight.
   - Holt Winter's based trend forecast weight.
@@ -65,7 +65,8 @@ We call the lowest unit that can be searched, personalised or curated a **'Produ
   - Trending Products
 - Custom algorithms can be composed in functional style.
 
----
+-----------------------------------------------
+
 ## Data Pipeline
 - A very powerful data pipeline that can import data from variety of sources --
   - CSV Files
@@ -75,3 +76,46 @@ We call the lowest unit that can be searched, personalised or curated a **'Produ
 - Transform or multiplex data through JS functions.
 - Extend data with lookups & mapper
 - Output data to Indexer, as of now (more to come).
+
+-----------------------------------------------
+
+## Architecture
+TODO
+
+## How to Install
+While there are other ways to install, we recommend to install humane-discovery as global npm module
+
+```sh
+npm install -g humane-discovery
+```
+
+## How to Run
+Humane-discovery has two commands - one for cli, another for server
+
+### Running Server
+
+```sh
+humane-server --config <globally installed config module or full path to module directory> --transliterator [Transliterator module if any]
+```
+
+This will run the humane discovery server on 3000 port.
+
+### Running Cli
+
+Run following to know help on available commands
+
+```sh
+humane-cli --config <globally installed config module or full path to module directory>
+```
+
+![Sample CLI](/docs/assets/SAMPLE_CLI_DH.png)
+
+## How to Configure
+
+- Indexer Configuration
+- Search Configuration
+- Cockpit Configuration
+
+## API Documentation
+- Indexer APIs
+- Search APIs
