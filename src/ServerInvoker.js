@@ -27,15 +27,19 @@ import runCli from 'command-line-boilerplate/lib/CliRunner';
 import Server from './Server';
 
 globalOption('-c, --config [CONFIG]',
-  `Path to config directory.
-        Defaults to:
-            1) Current directory - must be a valid node module or have index.js
-            2) HUMANE_DISCOVERY_CONFIG environment variable
-            3) <your-home>/humane_discovery_config`);
+  `Path to config.
+            Can be name of globally installed module or full path to module directory.
+            Defaults to:
+                1) Current directory - must be a valid node module or have index.js
+                2) HUMANE_DISCOVERY_CONFIG environment variable`
+);
 
 globalOption('-m, --multi', 'Specifies whether multi instance or single');
 
-globalOption('--transliterator [MODULE DIRECTORY]', 'Specifies transliterator module directory');
+globalOption('--transliterator [MODULE DIRECTORY]',
+  `Path to transliterator plugin.
+            Can be name of globally installed plugin module or full path to plugin directory.
+            Defaults to: HUMANE_PLUGIN_TRANSLITERATOR environment variable`);
 
 globalOption('-p, --port [PORT]', 'Specifies server port');
 
@@ -128,7 +132,7 @@ function validConfig(pathOrMultiPath, throwError) {
 // TODO: setup watcher for config changes
 Promise.resolve(globalArg('config'))
   .then(config => validConfig(config, true))
-  //.then(config => !config ? validConfig(process.cwd()) : config)
+  .then(config => !config ? validConfig(process.cwd()) : config)
   .then(config => !config ? validConfig(process.env.HUMANE_DISCOVERY_CONFIG, true) : config)
 
   //.then(config => !config ? validConfig(`${process.env.HOME}/humane_discovery_config`) : config)

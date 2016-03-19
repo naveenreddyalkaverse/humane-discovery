@@ -1,4 +1,4 @@
-# Humane Discovery [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/humane-discovery)
+# Humane Discovery [![npm version] 1.0.0](https://www.npmjs.com/package/humane-discovery)
 Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, e-commerce, digital goods products etc. More specifically product approaches the discovery problem in 3 broad parts --
 
 - Search based discovery, such as autocomplete, suggested queries, search results, instance searches.
@@ -94,6 +94,8 @@ Humane-discovery has two commands - one for cli, another for server
 
 ### Running Server
 
+[TODO: show CLI screen-shot]
+
 ```sh
 humane-server --config <globally installed config module or full path to module directory> --transliterator [Transliterator module if any]
 ```
@@ -102,13 +104,17 @@ This will run the humane discovery server on 3000 port.
 
 ### Running Cli
 
+[TODO: show CLI screen-shot]
+
+[TODO: talk about meta-cli]
+
 Run following to know help on available commands
 
 ```sh
 humane-cli --config <globally installed config module or full path to module directory>
 ```
 
-![Sample CLI](/docs/assets/SAMPLE_CLI_DH.png)
+![Sample CLI](/docs/assets/SAMPLE_CLI_DH.png "Sample CLI")
 
 ## How to Configure
 
