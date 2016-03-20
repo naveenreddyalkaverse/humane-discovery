@@ -136,45 +136,42 @@ CLI is a meta-cli, that is CLI generates another CLI based on provided config. T
 ## How to Configure
 
 1. Create a new npm module for the configuration.
-2. Add dependency on humane-indexer
-```sh
-npm install --save humane-indexer
-```
+2. Add dependency on humane-indexer: ```npm install --save humane-indexer```
 3. Create IndicesConfig.js, SearchConfig.js, and CockpitConfig.js - refer below for details    
-    - [Indexer Configuration](https://github.com/360fy/humane-indexer)
-    - [Search Configuration](https://github.com/360fy/humane-searcher)
-    - [Cockpit Configuration](https://github.com/360fy/humane-cockpit)
+ - [Indexer Configuration](https://github.com/360fy/humane-indexer)
+ - [Search Configuration](https://github.com/360fy/humane-searcher)
+ - [Cockpit Configuration](https://github.com/360fy/humane-cockpit)
 4. You can optionally define DataPipelineConfig.js - refer [Indexer Configuration](https://github.com/360fy/humane-indexer) for details.
 5. Create a index.js file.
 6. Export following from index.js
-    - name of the instance (say ```exams```) as ```instanceName```
-    - IndicesConfig.js as ```indicesConfig```
-    - SearchConfig.js as ```searchConfig```
-    - CockpitConfig.js as ```cockpitConfig```
-    - DataPipelineConfig.js as ```dataPipelineConfig```
+ - name of the instance (say ```exams```) as ```instanceName```
+ - IndicesConfig.js as ```indicesConfig```
+ - SearchConfig.js as ```searchConfig```
+ - CockpitConfig.js as ```cockpitConfig```
+ - DataPipelineConfig.js as ```dataPipelineConfig```
 
-Sample index.js - 
-```js
-exports.instanceName = 'exams';
-exports.dataPipelineConfig = require('./DataPipelineConfig.js');
-exports.indicesConfig = require('./IndicesConfig.js');
-exports.searchConfig = requure('./SearchConfig.js');
-exports.cockpitConfig = require('./CockpitConfig.js');
-```       
+ Sample index.js - 
+ ```js
+ exports.instanceName = 'exams';
+ exports.dataPipelineConfig = require('./DataPipelineConfig.js');
+ exports.indicesConfig = require('./IndicesConfig.js');
+ exports.searchConfig = requure('./SearchConfig.js');
+ exports.cockpitConfig = require('./CockpitConfig.js');
+ ```       
 7. In package.json specify this as 'main': 
-```json
-"main": "./lib/index.js"
-```
+ ```
+ "main": "./lib/index.js"
+ ```
 8. If you use ES6, ```main``` should refer to babel compiled code for es5. Use following babel presets -
-```json
-    "babel": {
-        "plugins": [
-            "transform-runtime"
-        ],
-        "presets": [
-            "es2015"
-        ]
-    }
+```
+  "babel": {
+      "plugins": [
+          "transform-runtime"
+      ],
+      "presets": [
+          "es2015"
+      ]
+  }
 ```  
 
 ## API Documentation
