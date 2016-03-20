@@ -153,13 +153,14 @@ npm install --save humane-indexer
     - CockpitConfig.js as ```cockpitConfig```
     - DataPipelineConfig.js as ```dataPipelineConfig```
 
-    ```js
-    exports.instanceName = 'exams';
-    exports.dataPipelineConfig = require('./DataPipelineConfig.js');
-    exports.indicesConfig = require('./IndicesConfig.js');
-    exports.searchConfig = requure('./SearchConfig.js');
-    exports.cockpitConfig = require('./CockpitConfig.js');
-    ```       
+Sample index.js - 
+```js
+exports.instanceName = 'exams';
+exports.dataPipelineConfig = require('./DataPipelineConfig.js');
+exports.indicesConfig = require('./IndicesConfig.js');
+exports.searchConfig = requure('./SearchConfig.js');
+exports.cockpitConfig = require('./CockpitConfig.js');
+```       
 7. In package.json specify this as 'main': 
 ```json
 "main": "./lib/index.js"
