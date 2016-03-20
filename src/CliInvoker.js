@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import _ from 'lodash';
-import FS from 'fs';
 import Promise from 'bluebird';
 import DefaultConfig from 'config';
 
@@ -10,58 +9,34 @@ import runCli from 'command-line-boilerplate/lib/CliRunner';
 
 import cli from './Cli';
 
-globalOption('-c, --config [CONFIG]', 'Path to config directory (supports single only)');
+import loadConfig from './ConfigLoader';
+
+globalOption('-c, --config [CONFIG]',
+  `Path to config.
+            Can be name of globally installed module or full path to module directory.
+            Defaults to:
+                1) Current directory - must be a valid node module or have index.js
+                2) HUMANE_DISCOVERY_CONFIG environment variable`
+);
 
 // runs the cli
 runCli();
-
-const fsPromise = Promise.promisifyAll(FS);
-
-function handleConfigError(error, throwError, directory) {
-    if (error && throwError) {
-        if (error.code === 'ENOENT') {
-            console.error(`>>> No such file or directory at ${directory}`);
-        } else if (error.code === 'MODULE_NOT_FOUND') {
-            console.error(`>>> Bad module at ${directory} :`, error.message);
-        } else {
-            console.error(`>>> Module error at ${directory} :`, error);
-        }
-
-        // exit process on any error
-        process.exit(1);
-    }
-
-    return null;
-}
-
-const CONFIG_ACCESS_PERMISSION = FS.R_OK;
 
 function validConfig(configPath, throwError) {
     if (!configPath) {
         return null;
     }
 
-    const loadConfigObject = (path) => {
-        console.log('Scanning config at: ', path);
-
-        const configDirectory = require.resolve(path);
-
-        console.log('Resolved location to: ', configDirectory);
-
-        return fsPromise.accessAsync(configDirectory, CONFIG_ACCESS_PERMISSION)
-          .then(() => require(configDirectory))
-          .catch(error => handleConfigError(error, throwError, configDirectory));
-    };
-
-    return loadConfigObject(configPath);
+    return loadConfig(configPath, throwError);
 }
 
 Promise.resolve(globalArg('config'))
   .then(config => validConfig(config, true))
+  .then(config => !config ? validConfig(process.cwd()) : config)
+  .then(config => !config ? validConfig(process.env.HUMANE_DISCOVERY_CONFIG, true) : config)
   .then(config => {
       if (!config) {
           console.error('No config was specified or found');
-
           process.exit(1);
       }
 
