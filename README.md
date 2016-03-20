@@ -80,16 +80,18 @@ We call the lowest unit that can be searched, personalised or curated a **'Produ
 -----------------------------------------------
 
 ## How to Install
-While there are other ways to install, we recommend to install humane-discovery as global npm module
+Follow prerequisites and then install it as global npm module: ```npm install -g humane-discovery```
 
-```sh
-npm install -g humane-discovery
-```
+#### Prerequisites
+* `node` - v4.0.0+
+* `npm` - v2.0.0+.
+* You are familiar with `npm` and know whether or not you need to use `sudo` when installing packages globally.
+* You are familiar with `git`.
 
 ## How to Run
 Humane-discovery has two commands - one for cli, another for server
 
-### Running Server
+#### Running Server
 Server runs the searcher and indexer API services and cockpit UI.
 
 ```sh
@@ -112,7 +114,7 @@ transliterator   - Path to transliterator plugin (optional).
 port             - Server Port. Defaults to: 3000                   
 ```                 
 
-### Running Cli
+#### Running Cli
 CLI provides various utility commands for managing indexes - such as adding (or removing) index, add (or update, delete, upsert) data, import data into index through data pipeline.
 
 ```sh
@@ -151,6 +153,7 @@ CLI is a meta-cli, that is CLI generates another CLI based on provided config. T
  - DataPipelineConfig.js as ```dataPipelineConfig```
 
  Sample index.js - 
+ 
  ```js
  exports.instanceName = 'exams';
  exports.dataPipelineConfig = require('./DataPipelineConfig.js');
@@ -159,10 +162,12 @@ CLI is a meta-cli, that is CLI generates another CLI based on provided config. T
  exports.cockpitConfig = require('./CockpitConfig.js');
  ```       
 7. In package.json specify this as 'main': 
+
  ```
  "main": "./lib/index.js"
  ```
 8. If you use ES6, ```main``` should refer to babel compiled code for es5. Use following babel presets -
+
 ```
   "babel": {
       "plugins": [
