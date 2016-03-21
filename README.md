@@ -84,9 +84,9 @@ Follow prerequisites and then install it as global npm module: ```npm install -g
 
 #### Prerequisites
 * `node` - v4.0.0+
-* `npm` - v2.0.0+.
+* `npm` - v2.0.0+
 * You are familiar with `npm` and know whether or not you need to use `sudo` when installing packages globally.
-* You are familiar with `git`.
+* `git` - v2.7.0+
 
 ## How to Run
 Humane-discovery has two commands - one for cli, another for server
