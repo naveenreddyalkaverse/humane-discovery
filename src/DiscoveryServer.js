@@ -50,13 +50,13 @@ export default class Server {
         this._built = false;
     }
 
-    withConfig(config) {
+    withPlugin(config) {
         this.addConfig(config);
 
         return this;
     }
 
-    withConfigs(configs) {
+    withPlugins(configs) {
         _.forEach(configs, config => this.addConfig(config));
 
         return this;

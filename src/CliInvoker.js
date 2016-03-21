@@ -1,7 +1,9 @@
 import 'babel-polyfill';
 import _ from 'lodash';
+import Path from 'path';
 import Promise from 'bluebird';
-import DefaultConfig from 'config';
+
+import Config from 'config-boilerplate/lib/Config';
 
 import globalOption from 'command-line-boilerplate/lib/GlobalOption';
 import globalArg from 'command-line-boilerplate/lib/GlobalArg';
@@ -9,37 +11,42 @@ import runCli from 'command-line-boilerplate/lib/CliRunner';
 
 import cli from './Cli';
 
-import loadConfig from './ConfigLoader';
+import loadPlugin from './DiscoveryPluginLoader';
 
-globalOption('-c, --config [CONFIG]',
-  `Path to config.
+globalOption('-c, --config [CONFIG]', 'Path to JSON / YAML based environment configs, such as esConfig, redisConfig etc');
+
+globalOption('-d, --discoveryPlugin [DISCOVERY PLUGIN]',
+  `Path to single discovery plugin.
             Can be name of globally installed module or full path to module directory.
             Defaults to:
-                1) Current directory - must be a valid node module or have index.js
-                2) HUMANE_DISCOVERY_CONFIG environment variable`
+                1) Current directory - must be a valid node module
+                2) HUMANE_PLUGIN_DISCOVERY environment variable`
 );
 
 // runs the cli
 runCli();
 
-function validConfig(configPath, throwError) {
-    if (!configPath) {
+function validPlugin(path, throwError) {
+    if (!path) {
         return null;
     }
 
-    return loadConfig(configPath, throwError);
+    return loadPlugin(path, throwError);
 }
 
-Promise.resolve(globalArg('config'))
-  .then(config => validConfig(config, true))
-  .then(config => !config ? validConfig(process.cwd()) : config)
-  .then(config => !config ? validConfig(process.env.HUMANE_DISCOVERY_CONFIG, true) : config)
-  .then(config => {
-      if (!config) {
-          console.error('No config was specified or found');
+Promise.resolve(globalArg('discoveryPlugin'))
+  .then(plugin => validPlugin(plugin, true))
+  .then(plugin => !plugin ? validPlugin(process.cwd()) : plugin)
+  .then(plugin => !plugin ? validPlugin(process.env.HUMANE_PLUGIN_DISCOVERY, true) : plugin)
+  .then(plugin => {
+      if (!plugin) {
+          console.error('No plugin was specified or found');
           process.exit(1);
       }
 
-      // READ config from current location ==> which is default, but can be over-ridden by what exists in indices config
-      return cli(_.extend({}, DefaultConfig, config));
+      const defaultConfig = globalArg('config')
+        ? new Config('default', globalArg('config'), Path.join(__dirname, '..', 'config'))
+        : new Config('default', Path.join(__dirname, '..', 'config'));
+
+      return cli(_.extend({}, defaultConfig, plugin));
   });

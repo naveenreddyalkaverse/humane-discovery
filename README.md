@@ -95,17 +95,17 @@ Humane-discovery has two commands - one for cli, another for server
 Server runs the searcher and indexer API services and cockpit UI.
 
 ```sh
-humane-server --config <config> --port [PORT] --transliterator [transliterator module]
+humane-server --discoveryPlugin <plugin module> --port [PORT] --transliterator [transliterator module]
 ```
 
 Below are details on various options -
 
 ```
-config           - Path to config or comma separate configs.
+discoveryPlugin  - Path to single or list of comma separated discovery plugins.
                    Can be name of globally installed module or full path to module directory.
                    Defaults to:
-                       1) Current directory - must be a valid node module or have index.js
-                       2) HUMANE_DISCOVERY_CONFIG environment variable
+                       1) Current directory - must be a valid node module
+                       2) HUMANE_PLUGIN_DISCOVERY environment variable
                        
 transliterator   - Path to transliterator plugin (optional).
                    Can be name of globally installed plugin module or full path to plugin directory.
@@ -118,26 +118,26 @@ port             - Server Port. Defaults to: 3000
 CLI provides various utility commands for managing indexes - such as adding (or removing) index, add (or update, delete, upsert) data, import data into index through data pipeline.
 
 ```sh
-humane-cli --config <config>
+humane-cli --discoveryPlugin <plugin module>
 ```
 
 Below are details on various options.
 
 ```
-config           - Path to config or comma separate configs.
+discoveryPlugin  - Path to single discovery plugin.
                    Can be name of globally installed module or full path to module directory.
                    Defaults to:
-                       1) Current directory - must be a valid node module or have index.js
-                       2) HUMANE_DISCOVERY_CONFIG environment variable
+                       1) Current directory - must be a valid node module
+                       2) HUMANE_PLUGIN_DISCOVERY environment variable
 ```    
 
-CLI is a meta-cli, that is CLI generates another CLI based on provided config. This way commands are specific to the configured indexes, types, data pipeline. Below is such a sample CLI.
+CLI is a meta-cli, that is CLI generates another CLI based on provided discovery plugin. This way commands are specific to the configured indexes, types, data pipeline. Below is such a sample CLI.
 
 ![Sample CLI](/docs/assets/SAMPLE_CLI_DH.png "Sample CLI")
 
-## How to Configure
+## How to Create Discovery Plugin
 
-1. Create a new npm module for the configuration.
+1. Create a new npm module for the plugin.
 2. Add dependency on humane-indexer: ```npm install --save humane-indexer```
 3. Create IndicesConfig.js, SearchConfig.js, and CockpitConfig.js - refer below for details    
  - [Indexer Configuration](https://github.com/360fy/humane-indexer)
@@ -158,7 +158,7 @@ CLI is a meta-cli, that is CLI generates another CLI based on provided config. T
  exports.instanceName = 'exams';
  exports.dataPipelineConfig = require('./DataPipelineConfig.js');
  exports.indicesConfig = require('./IndicesConfig.js');
- exports.searchConfig = requure('./SearchConfig.js');
+ exports.searchConfig = require('./SearchConfig.js');
  exports.cockpitConfig = require('./CockpitConfig.js');
  ```       
 7. In package.json specify this as 'main': 
