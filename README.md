@@ -1,4 +1,4 @@
-# Humane Discovery [1.0.2](https://www.npmjs.com/package/humane-discovery)
+# Humane Discovery [1.0.3](https://www.npmjs.com/package/humane-discovery)
 Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, e-commerce, digital goods products etc. More specifically product approaches the discovery problem in 3 broad parts --
 
 - Search based discovery, such as autocomplete, suggested queries, search results, instance searches.

@@ -19,16 +19,17 @@
     "agentkeepalive": "^2.0.5",
     "babel-polyfill": "^6.7.2",
     "bluebird": "^3.3.4",
-    "command-line-boilerplate": "^1.0.2",
-    "config-boilerplate": "^1.0.3",
+    "command-line-boilerplate": "^1.1.0",
+    "config-boilerplate": "^1.1.0",
     "events": "^1.1.0",
-    "expressjs-boilerplate": "^1.0.11",
-    "humane-cockpit": "^1.0.6",
-    "humane-indexer": "^1.0.10",
-    "humane-searcher": "^1.0.9",
+    "expressjs-boilerplate": "^1.1.0",
+    "humane-cockpit": "^1.1.0",
+    "humane-indexer": "^1.1.0",
+    "humane-searcher": "^1.1.0",
     "immutable": "^3.7.6",
     "lodash": "^4.6.1",
     "md5": "^2.1.0",
+    "mkdirp": "^0.5.1",
     "moment": "^2.12.0",
     "request": "^2.69.0"
   },
@@ -39,9 +40,9 @@
     "babel-preset-node5": "^11.0.0",
     "babel-preset-react": "^6.5.0",
     "eslint": "^2.4.0",
-    "eslint-config-360fy": "^1.0.1",
+    "eslint-config-360fy": "^1.1.0",
     "eslint-plugin-react": "^4.2.3",
-    "webpack-builder-boilerplate": "^1.0.0"
+    "webpack-builder-boilerplate": "^1.1.0"
   },
   "eslintConfig": {
     "extends": "360fy"

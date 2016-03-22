@@ -30,6 +30,8 @@ globalOption('--transliterator [MODULE DIRECTORY]',
 
 globalOption('-p, --port [PORT]', 'Specifies server port');
 
+globalOption('-l, --logDirectory [LOG DIRECTORY]', 'Full path to log directory');
+
 // runs the cli
 runCli();
 
@@ -66,7 +68,9 @@ Promise.resolve(globalArg('discoveryPlugin'))
         : new Config('default', Path.join(__dirname, '..', 'config'));
 
       // start the server here
-      const server = new DiscoveryServer(multi, globalArg('port') || process.env.HUMANE_SERVER_PORT || defaultConfig.HUMANE_SERVER_PORT || '3000');
+      const server = new DiscoveryServer(multi,
+        globalArg('port') || process.env.HUMANE_SERVER_PORT || defaultConfig.HUMANE_SERVER_PORT || '3000',
+        globalArg('logDirectory'));
 
       const transliteratorPlugin = globalArg('transliterator') || process.env.HUMANE_PLUGIN_TRANSLITERATOR || defaultConfig.plugins && defaultConfig.plugins.transliterator;
 

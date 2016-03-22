@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import OS from 'os';
+import Path from 'path';
 import {EventEmitter} from 'events';
 import {Map as immutableMap} from 'immutable';
 
@@ -6,7 +8,7 @@ import Searcher from 'humane-searcher/lib/api/Searcher';
 import Indexer from 'humane-indexer/lib/api/Indexer';
 import routesBuilder from 'humane-cockpit/lib/app/Routes';
 
-import Path from 'path';
+import mkdirp from 'mkdirp';
 
 //
 // cli specific includes
@@ -37,13 +39,14 @@ const SEARCH_CONFIG_FIELDS = [
 ];
 
 export default class Server {
-    constructor(multiInstance, port) {
+    constructor(multiInstance, port, logDirectory) {
         this.multiInstance = multiInstance;
         this.port = port;
         this.configs = {};
         this.indexers = {};
         this.searchers = {};
         this.services = {};
+        this.logDirectory = logDirectory;
 
         this.eventEmitter = new EventEmitter();
 
@@ -85,9 +88,15 @@ export default class Server {
         }
 
         // build indexer, searcher and add them to services
+        const logDirectory = this.logDirectory || Path.join(OS.homedir(), 'humane_discovery_logs');
+
+        // create directory if it does not exist
+        mkdirp.sync(logDirectory);
 
         buildServer({
             port: this.port,
+
+            logDirectory,
 
             eventEmitter: this.eventEmitter,
 
