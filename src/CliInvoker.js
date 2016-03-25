@@ -56,8 +56,8 @@ Promise.resolve(globalArg('discoveryPlugin'))
           console.error('No plugin was specified or found');
           
           outputHelp();
-          
-          return;
+
+          return false;
       }
 
       const defaultConfig = globalArg('config')

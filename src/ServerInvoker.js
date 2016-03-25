@@ -74,7 +74,7 @@ Promise.resolve(globalArg('discoveryPlugin'))
 
           outputHelp();
 
-          return;
+          return false;
       }
 
       const multi = true;
