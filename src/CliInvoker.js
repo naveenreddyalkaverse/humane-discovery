@@ -60,5 +60,5 @@ Promise.resolve(globalArg('discoveryPlugin'))
         ? new Config('default', globalArg('config'), Path.join(__dirname, '..', 'config'))
         : new Config('default', Path.join(__dirname, '..', 'config'));
 
-      return cli(_.extend({}, defaultConfig, plugin));
+      return cli(_.defaultsDeep({}, plugin, defaultConfig));
   });
