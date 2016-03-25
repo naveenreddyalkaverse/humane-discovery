@@ -8,6 +8,7 @@ import Config from 'config-boilerplate/lib/Config';
 import globalOption from 'command-line-boilerplate/lib/GlobalOption';
 import globalArg from 'command-line-boilerplate/lib/GlobalArg';
 import runCli from 'command-line-boilerplate/lib/CliRunner';
+import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
 
 import cli from './Cli';
 
@@ -24,7 +25,7 @@ globalOption('-d, --discoveryPlugin [DISCOVERY PLUGIN]',
 );
 
 // runs the cli
-runCli();
+runCli(true);
 
 function validDiscoveryPlugin(path, throwError) {
     if (!path) {
@@ -53,7 +54,10 @@ Promise.resolve(globalArg('discoveryPlugin'))
   .then(plugin => {
       if (!plugin) {
           console.error('No plugin was specified or found');
-          process.exit(1);
+          
+          outputHelp();
+          
+          return;
       }
 
       const defaultConfig = globalArg('config')

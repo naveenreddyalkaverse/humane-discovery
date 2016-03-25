@@ -8,6 +8,7 @@ import Config from 'config-boilerplate/lib/Config';
 import globalOption from 'command-line-boilerplate/lib/GlobalOption';
 import globalArg from 'command-line-boilerplate/lib/GlobalArg';
 import runCli from 'command-line-boilerplate/lib/CliRunner';
+import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
 
 import DiscoveryServer from './DiscoveryServer';
 
@@ -33,7 +34,7 @@ globalOption('-p, --port [PORT]', 'Specifies server port');
 globalOption('-l, --logDirectory [LOG DIRECTORY]', 'Full path to log directory');
 
 // runs the cli
-runCli();
+runCli(true);
 
 function validDiscoveryPlugin(pathOrMultiPath, throwError) {
     if (!pathOrMultiPath) {
@@ -70,7 +71,10 @@ Promise.resolve(globalArg('discoveryPlugin'))
   .then(pluginOrArray => {
       if (!pluginOrArray) {
           console.error('No plugin was specified or found');
-          process.exit(1);
+
+          outputHelp();
+
+          return;
       }
 
       const multi = true;

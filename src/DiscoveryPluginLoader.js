@@ -8,7 +8,9 @@ function handleConfigError(error, throwError, directory) {
         if (error.code === 'ENOENT') {
             console.error(`>>> ERROR: No such file or directory at ${directory}`);
         } else if (error.code === 'MODULE_NOT_FOUND') {
-            console.error(`>>> ERROR: Bad module at ${directory} :`, error.message);
+            if (throwError) {
+                console.error(`>>> ERROR: Bad module at ${directory} :`, error.message);
+            }
         } else {
             console.error(`>>> ERROR: Module error at ${directory} :`, error);
         }
