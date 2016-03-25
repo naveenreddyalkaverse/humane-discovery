@@ -67,8 +67,8 @@ Promise.resolve(globalArg('discoveryPlugin'))
 
       return plugin;
   })
-  .then(plugin => {
-      if (!plugin) {
+  .then(pluginOrArray => {
+      if (!pluginOrArray) {
           console.error('No plugin was specified or found');
           process.exit(1);
       }
@@ -92,11 +92,11 @@ Promise.resolve(globalArg('discoveryPlugin'))
           transliterator = new Transliterator();
       }
 
-      if (_.isArray(plugin)) {
-          const plugins = _.map(plugin, con => _.extend({}, defaultConfig, {transliterator}, con));
+      if (_.isArray(pluginOrArray)) {
+          const plugins = _.map(pluginOrArray, plugin => _.defaultsDeep({}, plugin, {transliterator}, defaultConfig));
 
           return server.withPlugins(plugins).build();
       }
 
-      return server.withPlugin(_.extend({}, defaultConfig, {transliterator}, plugin)).build();
+      return server.withPlugin(_.defaultsDeep({}, pluginOrArray, {transliterator}, defaultConfig)).build();
   });
