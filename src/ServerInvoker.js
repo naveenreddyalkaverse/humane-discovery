@@ -53,8 +53,20 @@ function validDiscoveryPlugin(pathOrMultiPath, throwError) {
 // TODO: setup watcher for plugin changes
 Promise.resolve(globalArg('discoveryPlugin'))
   .then(pluin => validDiscoveryPlugin(pluin, true))
-  .then(plugin => !plugin ? validDiscoveryPlugin(process.cwd()) : plugin)
-  .then(plugin => !plugin ? validDiscoveryPlugin(process.env.HUMANE_PLUGIN_DISCOVERY, true) : plugin)
+  .then(plugin => {
+      if (!plugin) {
+          return validDiscoveryPlugin(process.cwd());
+      }
+
+      return plugin;
+  })
+  .then(plugin => {
+      if (!plugin) {
+          return validDiscoveryPlugin(process.env.HUMANE_PLUGIN_DISCOVERY, true);
+      }
+
+      return plugin;
+  })
   .then(plugin => {
       if (!plugin) {
           console.error('No plugin was specified or found');

@@ -26,7 +26,7 @@ globalOption('-d, --discoveryPlugin [DISCOVERY PLUGIN]',
 // runs the cli
 runCli();
 
-function validPlugin(path, throwError) {
+function validDiscoveryPlugin(path, throwError) {
     if (!path) {
         return null;
     }
@@ -35,9 +35,21 @@ function validPlugin(path, throwError) {
 }
 
 Promise.resolve(globalArg('discoveryPlugin'))
-  .then(plugin => validPlugin(plugin, true))
-  .then(plugin => !plugin ? validPlugin(process.cwd()) : plugin)
-  .then(plugin => !plugin ? validPlugin(process.env.HUMANE_PLUGIN_DISCOVERY, true) : plugin)
+  .then(plugin => validDiscoveryPlugin(plugin, true))
+  .then(plugin => {
+      if (!plugin) {
+          return validDiscoveryPlugin(process.cwd());
+      }
+
+      return plugin;
+  })
+  .then(plugin => {
+      if (!plugin) {
+          return validDiscoveryPlugin(process.env.HUMANE_PLUGIN_DISCOVERY, true);
+      }
+
+      return plugin;
+  })
   .then(plugin => {
       if (!plugin) {
           console.error('No plugin was specified or found');
