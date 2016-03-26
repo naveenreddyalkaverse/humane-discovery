@@ -24,7 +24,7 @@
     "events": "^1.1.0",
     "expressjs-boilerplate": "^1.1.1",
     "humane-cockpit": "^1.1.0",
-    "humane-indexer": "^1.1.2",
+    "humane-indexer": "^1.1.4",
     "humane-searcher": "^1.1.2",
     "immutable": "^3.7.6",
     "lodash": "^4.6.1",
