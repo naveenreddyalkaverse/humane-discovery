@@ -4,8 +4,8 @@ import Path from 'path';
 import {EventEmitter} from 'events';
 import {Map as immutableMap} from 'immutable';
 
-import Searcher from 'humane-searcher/lib/api/Searcher';
-import Indexer from 'humane-indexer/lib/api/Indexer';
+import Searcher from 'humane-searcher/lib/Searcher';
+import Indexer from 'humane-indexer/lib/Indexer';
 import routesBuilder from 'humane-cockpit/lib/app/Routes';
 
 import mkdirp from 'mkdirp';

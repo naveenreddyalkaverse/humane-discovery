@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
-import Indexer from 'humane-indexer/lib/api/Indexer';
+import Indexer from 'humane-indexer/lib/Indexer';
 
 //
 // cli specific includes
 //
-import buildIndexerCli from 'humane-indexer/lib/api/IndexerCliBuilder';
-import buildDataPipelineCli from 'humane-indexer/lib/api/DataPipelineCliBuilder';
+import buildIndexerCli from 'humane-indexer/lib/IndexerCliBuilder';
+import buildDataPipelineCli from 'humane-data-pipeline/lib/DataPipelineCliBuilder';
 import currentCommand from 'command-line-boilerplate/lib/CurrentCommand';
 import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
 import runCli from 'command-line-boilerplate/lib/CliRunner';
