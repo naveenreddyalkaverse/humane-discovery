@@ -3,17 +3,16 @@ import OS from 'os';
 import Path from 'path';
 import {EventEmitter} from 'events';
 import {Map as immutableMap} from 'immutable';
-
 import Searcher from 'humane-searcher/lib/Searcher';
 import Indexer from 'humane-indexer/lib/Indexer';
 import routesBuilder from 'humane-cockpit/lib/app/Routes';
-
 import mkdirp from 'mkdirp';
+import buildServer from 'expressjs-boilerplate/lib/server/Server';
+import md5 from 'md5';
 
 //
 // cli specific includes
 //
-import buildServer from 'expressjs-boilerplate/lib/server/Server';
 
 const INDICES_CONFIG_FIELDS = [
     'instanceName',
@@ -76,15 +75,15 @@ export default class Server {
 
                 const instanceName = params.instanceName;
 
-                return _.extend({
+                return _.defaultsDeep(_this.configs[instanceName].cockpitConfig, {
                     multiInstance: _this.multiInstance,
                     instanceName,
                     searcherApi: `/${instanceName}/searcher/api`,
                     cockpitUrlPrefix: `/${instanceName}`
-                }, _this.configs[instanceName].cockpitConfig);
+                });
             }
 
-            return _.extend({instanceName: 'default', searcherApi: '/searcher/api', cockpitUrlPrefix: ''}, _this.configs.default.cockpitConfig);
+            return _.defaultsDeep(_this.configs.default.cockpitConfig, {instanceName: 'default', searcherApi: '/searcher/api', cockpitUrlPrefix: ''});
         }
 
         // build indexer, searcher and add them to services
@@ -128,8 +127,62 @@ export default class Server {
         const instanceName = this.multiInstance ? config.instanceName : 'default';
 
         console.log('Instance Name: ', instanceName);
+        
+        if (!config.cockpitConfig.cockpitName) {
+            config.cockpitConfig.cockpitName = `${_.chain(instanceName).camelCase().toUpper().value()} Cockpit`;
+        }
 
-        this.configs[instanceName] = config;
+        if (!config.cockpitConfig.views) {
+            config.cockpitConfig.views = [];
+        }
+
+        if (!_.some(config.cockpitConfig.views, ['name', 'Search Queries'])) {
+            const searchQueriesView = {
+                name: 'Search Queries',
+                type: 'group',
+                items: [
+                    {
+                        name: 'Search Queries that has results',
+                        type: 'data',
+                        key: md5('searchQuery/true'),
+                        params: {type: 'searchQuery', filter: {hasResults: true}},
+                        fields: [
+                            {Query: 'query'},
+                            {Count: 'count'}
+                        ]
+                    },
+                    {
+                        name: 'Search Queries that has no results',
+                        type: 'data',
+                        key: md5('searchQuery/false'),
+                        params: {type: 'searchQuery', filter: {hasResults: false}},
+                        fields: [
+                            {Query: 'query'},
+                            {Count: 'count'}
+                        ]
+                    }
+                ]
+            };
+
+            config.cockpitConfig.views.push(searchQueriesView);
+        }
+
+        this.configs[instanceName] = _.defaultsDeep(config, {
+            cockpitConfig: {
+                autocomplete: {
+                    searchQuery: {
+                        name: 'Search Query',
+                        statFields: [
+                            {Count: 'count'}
+                        ],
+                        valueField: 'query',
+                        unicodeValueField: 'unicodeQuery',
+                        displayField: 'query',
+                        searchMode: 'autocomplete:popular_search'
+                    }
+                }
+            }
+        });
 
         // build indexer, searcher, and add to server api through event calls
         const searcherApiPath = this.multiInstance ? `/${instanceName}/searcher/api` : '/searcher/api';
