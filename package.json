@@ -27,11 +27,11 @@
     "humane-indexer": "^1.4.0",
     "humane-searcher": "^1.4.1",
     "immutable": "^3.8.1",
-    "lodash": "^4.11.2",
+    "lodash": "^4.12.0",
     "md5": "^2.1.0",
     "mkdirp": "^0.5.1",
     "node-sass": "^3.4.2",
-    "webpack-builder-boilerplate": "^1.1.4"
+    "webpack-builder-boilerplate": "^1.1.5"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",
