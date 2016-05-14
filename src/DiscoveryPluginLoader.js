@@ -1,6 +1,8 @@
 import FS from 'fs';
 import Promise from 'bluebird';
 
+/* eslint-disable global-require */
+
 const fsPromise = Promise.promisifyAll(FS);
 
 function handleConfigError(error, throwError, directory) {

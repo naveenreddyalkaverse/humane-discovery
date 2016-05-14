@@ -2,17 +2,15 @@ import 'babel-polyfill';
 import _ from 'lodash';
 import Path from 'path';
 import Promise from 'bluebird';
-
 import Config from 'config-boilerplate/lib/Config';
-
 import globalOption from 'command-line-boilerplate/lib/GlobalOption';
 import globalArg from 'command-line-boilerplate/lib/GlobalArg';
 import runCli from 'command-line-boilerplate/lib/CliRunner';
 import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
-
 import DiscoveryServer from './DiscoveryServer';
-
 import loadPlugin from './DiscoveryPluginLoader';
+
+/* eslint-disable global-require */
 
 globalOption('-c, --config [CONFIG]', 'Path to JSON / YAML based environment configs, such as esConfig, redisConfig etc');
 
@@ -44,7 +42,10 @@ function validDiscoveryPlugin(pathOrMultiPath, throwError) {
     const multi = /,/.test(pathOrMultiPath);
 
     if (multi) {
-        const paths = _(pathOrMultiPath).split(',').map(path => _.trim(path)).value();
+        const paths = _(pathOrMultiPath)
+          .split(',')
+          .map(path => _.trim(path))
+          .value();
         return Promise.all(_.map(paths, path => loadPlugin(path, throwError)));
     }
 

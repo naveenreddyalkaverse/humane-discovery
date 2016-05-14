@@ -37,6 +37,8 @@ const SEARCH_CONFIG_FIELDS = [
     'cacheConfig'
 ];
 
+/* eslint-disable no-underscore-dangle */
+
 export default class Server {
     constructor(multiInstance, port, logDirectory) {
         this.multiInstance = multiInstance;
@@ -127,9 +129,12 @@ export default class Server {
         const instanceName = this.multiInstance ? config.instanceName : 'default';
 
         console.log('Instance Name: ', instanceName);
-        
+
         if (!config.cockpitConfig.cockpitName) {
-            config.cockpitConfig.cockpitName = `${_.chain(instanceName).camelCase().toUpper().value()} Cockpit`;
+            config.cockpitConfig.cockpitName = `${_.chain(instanceName)
+              .camelCase()
+              .toUpper()
+              .value()} Cockpit`;
         }
 
         if (!config.cockpitConfig.views) {
