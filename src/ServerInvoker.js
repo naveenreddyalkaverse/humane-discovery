@@ -10,8 +10,6 @@ import outputHelp from 'command-line-boilerplate/lib/OutputHelp';
 import DiscoveryServer from './DiscoveryServer';
 import loadPlugin from './DiscoveryPluginLoader';
 
-/* eslint-disable global-require */
-
 globalOption('-c, --config [CONFIG]', 'Path to JSON / YAML based environment configs, such as esConfig, redisConfig etc');
 
 globalOption('-d, --discoveryPlugin [DISCOVERY PLUGIN]',

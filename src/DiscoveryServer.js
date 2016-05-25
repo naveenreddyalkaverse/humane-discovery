@@ -37,8 +37,6 @@ const SEARCH_CONFIG_FIELDS = [
     'cacheConfig'
 ];
 
-/* eslint-disable no-underscore-dangle */
-
 export default class Server {
     constructor(multiInstance, port, logDirectory) {
         this.multiInstance = multiInstance;
