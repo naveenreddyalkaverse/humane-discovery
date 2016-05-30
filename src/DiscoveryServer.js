@@ -79,11 +79,17 @@ export default class Server {
                     multiInstance: _this.multiInstance,
                     instanceName,
                     searcherApi: `/${instanceName}/searcher/api`,
-                    cockpitUrlPrefix: `/${instanceName}`
+                    cockpitUrlPrefix: `/${instanceName}`,
+                    title: `${_.startCase(instanceName)} Cockpit`
                 });
             }
 
-            return _.defaultsDeep(_this.configs.default.cockpitConfig, {instanceName: 'default', searcherApi: '/searcher/api', cockpitUrlPrefix: ''});
+            return _.defaultsDeep(_this.configs.default.cockpitConfig, {
+                instanceName: 'default',
+                searcherApi: '/searcher/api',
+                cockpitUrlPrefix: '',
+                title: 'Cockpit'
+            });
         }
 
         // build indexer, searcher and add them to services
@@ -129,10 +135,7 @@ export default class Server {
         console.log('Instance Name: ', instanceName);
 
         if (!config.cockpitConfig.cockpitName) {
-            config.cockpitConfig.cockpitName = `${_.chain(instanceName)
-              .camelCase()
-              .toUpper()
-              .value()} Cockpit`;
+            config.cockpitConfig.cockpitName = `${_.startCase(instanceName)} Cockpit`;
         }
 
         if (!config.cockpitConfig.views) {
