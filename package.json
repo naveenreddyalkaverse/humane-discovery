@@ -24,7 +24,7 @@
     "expressjs-boilerplate": "^1.1.8",
     "humane-cockpit": "^1.3.7",
     "humane-data-pipeline": "^1.1.18",
-    "humane-indexer": "^1.7.1",
+    "humane-indexer": "^1.7.2",
     "humane-searcher": "^1.7.1",
     "immutable": "^3.8.1",
     "lodash": "^4.13.1",
