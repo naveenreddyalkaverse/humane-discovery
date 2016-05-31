@@ -77,15 +77,17 @@ export default class Server {
 
                 let baseUrl = null;
                 let resourcesPrefix = null;
+                let searcherApiPrefix = '';
                 if (!subDomain) {
                     baseUrl = `/${instanceName}`;
                     resourcesPrefix = instanceName;
+                    searcherApiPrefix = `/${instanceName}`;
                 }
 
                 return _.defaultsDeep(_this.configs[instanceName].cockpitConfig, {
                     multiInstance: _this.multiInstance,
                     instanceName,
-                    searcherApi: `/${instanceName}/searcher/api`,
+                    searcherApi: `${searcherApiPrefix}/searcher/api`,
                     baseUrl,
                     title: `${_.startCase(instanceName)} Cockpit`,
                     resourcesPrefix
