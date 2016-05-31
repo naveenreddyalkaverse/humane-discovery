@@ -64,7 +64,7 @@ export default class Server {
         return this;
     }
 
-    build() {
+    build(subDomain) {
         const _this = this;
 
         function cockpitPropertiesBuilder(params) {
@@ -75,19 +75,26 @@ export default class Server {
 
                 const instanceName = params.instanceName;
 
+                let baseUrl = null;
+                let resourcesPrefix = null;
+                if (!subDomain) {
+                    baseUrl = `/${instanceName}`;
+                    resourcesPrefix = instanceName;
+                }
+
                 return _.defaultsDeep(_this.configs[instanceName].cockpitConfig, {
                     multiInstance: _this.multiInstance,
                     instanceName,
                     searcherApi: `/${instanceName}/searcher/api`,
-                    cockpitUrlPrefix: `/${instanceName}`,
-                    title: `${_.startCase(instanceName)} Cockpit`
+                    baseUrl,
+                    title: `${_.startCase(instanceName)} Cockpit`,
+                    resourcesPrefix
                 });
             }
 
             return _.defaultsDeep(_this.configs.default.cockpitConfig, {
                 instanceName: 'default',
                 searcherApi: '/searcher/api',
-                cockpitUrlPrefix: '',
                 title: 'Cockpit'
             });
         }

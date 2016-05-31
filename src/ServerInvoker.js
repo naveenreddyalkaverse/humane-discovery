@@ -29,6 +29,8 @@ globalOption('-p, --port [PORT]', 'Specifies server port');
 
 globalOption('-l, --logDirectory [LOG DIRECTORY]', 'Full path to log directory');
 
+globalOption('--subDomain', 'Whether instances are mapped to sub domains');
+
 // runs the cli
 runCli(true);
 
@@ -101,5 +103,5 @@ Promise.resolve(globalArg('discoveryPlugin'))
           return server.withPlugins(plugins).build();
       }
 
-      return server.withPlugin(_.defaultsDeep({}, pluginOrArray, {transliterator}, defaultConfig)).build();
+      return server.withPlugin(_.defaultsDeep({}, pluginOrArray, {transliterator}, defaultConfig)).build(globalArg('subDomain') || process.env.HUMANE_SERVER_SUBDOMAIN);
   });
