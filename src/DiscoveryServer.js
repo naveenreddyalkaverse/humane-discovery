@@ -200,11 +200,11 @@ export default class Server {
         });
 
         // build indexer, searcher, and add to server api through event calls
-        const searcherApiPath = this.multiInstance ? `/${instanceName}/searcher/api` : '/searcher/api';
+        const searcherApiPath = this.multiInstance ? '/:instanceName/searcher/api' : '/searcher/api';
         const searcher = this.searchers[instanceName] = new Searcher(_.pick(config, SEARCH_CONFIG_FIELDS));
         this.services[`${instanceName}/searcher`] = {path: searcherApiPath, api: searcher};
 
-        const indexerApiPath = this.multiInstance ? `/${instanceName}/indexer/api` : '/indexer/api';
+        const indexerApiPath = this.multiInstance ? '/:instanceName/indexer/api' : '/indexer/api';
         const indexer = this.indexers[instanceName] = new Indexer(_.pick(config, INDICES_CONFIG_FIELDS));
         this.services[`${instanceName}/indexer`] = {path: indexerApiPath, api: indexer};
 
