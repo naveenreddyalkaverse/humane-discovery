@@ -1,5 +1,5 @@
-# Humane Discovery [1.0.3](https://www.npmjs.com/package/humane-discovery)
-Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, e-commerce, digital goods products etc. More specifically product approaches the discovery problem in 3 broad parts --
+# Humane Discovery [1.1.8](https://www.npmjs.com/package/humane-discovery)
+Humane Discovery product stack aims to solve entire discovery problem space for content (such as exams, jobs), news & media, e-commerce, digital goods products etc. More specifically product approaches the discovery problem in following broad parts --
 
 - Search based discovery, such as autocomplete, suggested queries, search results, instance searches.
 - Personalised discovery such as recommended products (or posts). 
@@ -87,6 +87,11 @@ Follow prerequisites and then install it as global npm module: ```npm install -g
 * `npm` - v2.0.0+
 * You are familiar with `npm` and know whether or not you need to use `sudo` when installing packages globally.
 * `git` - v2.7.0+
+* `elasticsearch` -v2.1+
+* `analysis-phonetic` plugin for elasticsearch - `<es>`/bin/plugin install analysis-phonetic
+* `java` - v1.8
+* `gcc` - v4.9.3+
+* `redis` - running on default port
 
 ## How to Run
 Humane-discovery has two commands - one for cli, another for server
