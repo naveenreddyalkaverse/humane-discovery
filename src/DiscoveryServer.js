@@ -64,7 +64,7 @@ export default class Server {
         return this;
     }
 
-    build(subDomain) {
+    build() {
         const _this = this;
 
         function cockpitPropertiesBuilder(params) {
@@ -78,27 +78,49 @@ export default class Server {
                 let baseUrl = null;
                 let resourcesPrefix = null;
                 let searcherApiPrefix = '';
-                if (!subDomain) {
-                    baseUrl = `/${instanceName}`;
-                    resourcesPrefix = instanceName;
-                    searcherApiPrefix = `/${instanceName}`;
+                if (params.X_INSTANCE_BASE) {
+                    let instanceBase = params.X_INSTANCE_BASE;
+                    if (instanceBase.endsWith('/')) {
+                        instanceBase = instanceBase.substring(0, instanceBase.length - 1);
+                    }
+
+                    if (!instanceBase.startsWith('/')) {
+                        instanceBase = `/${instanceBase}`;
+                    }
+
+                    baseUrl = resourcesPrefix = searcherApiPrefix = instanceBase;
+                } else if (params.X_PROXY_BASE) {
+                    let proxyBase = params.X_PROXY_BASE;
+                    if (proxyBase.endsWith('/')) {
+                        proxyBase = proxyBase.substring(0, proxyBase.length - 1);
+                    }
+
+                    if (!proxyBase.startsWith('/')) {
+                        proxyBase = `/${proxyBase}`;
+                    }
+
+                    baseUrl = resourcesPrefix = searcherApiPrefix = `${proxyBase}/${instanceName}`;
+                } else {
+                    baseUrl = resourcesPrefix = searcherApiPrefix = instanceName;
                 }
 
-                return _.defaultsDeep(_this.configs[instanceName].cockpitConfig, {
-                    multiInstance: _this.multiInstance,
-                    instanceName,
-                    searcherApi: `${searcherApiPrefix}/searcher/api`,
-                    baseUrl,
-                    title: `${_.startCase(instanceName)} Cockpit`,
-                    resourcesPrefix
-                });
+                return _.defaultsDeep({
+                      multiInstance: _this.multiInstance,
+                      instanceName,
+                      searcherApi: `${searcherApiPrefix}/searcher/api`,
+                      baseUrl,
+                      title: `${_.startCase(instanceName)} Cockpit`,
+                      resourcesPrefix
+                  },
+                  _this.configs[instanceName].cockpitConfig);
             }
 
-            return _.defaultsDeep(_this.configs.default.cockpitConfig, {
-                instanceName: 'default',
-                searcherApi: '/searcher/api',
-                title: 'Cockpit'
-            });
+            return _.defaultsDeep({
+                  instanceName: 'default',
+                  searcherApi: '/searcher/api',
+                  title: 'Cockpit'
+              },
+              _this.configs.default.cockpitConfig);
         }
 
         // build indexer, searcher and add them to services
