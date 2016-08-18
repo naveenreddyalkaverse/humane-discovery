@@ -1,5 +1,6 @@
 HUMANE_SERVER_PORT: 3000
 logLevel: info
+baseUrl : http://localhost:3000/
 esConfig:
   url: http://localhost:9200
   maxSockets: 20
