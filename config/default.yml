@@ -7,6 +7,9 @@ esConfig:
   maxFreeSockets: 5
   timeout: 60000
   keepAliveTimeout: 30000
+redisSentinelConfig:
+    name: books-dev-redis-master
+    endpoints: [{host: '192.168.10.98', port: 20001},{host: '192.168.10.90', port: 20000}]
 redisConfig:
   host: 127.0.0.1
   port: 6379
